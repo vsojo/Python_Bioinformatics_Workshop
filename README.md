@@ -51,13 +51,13 @@ https://docs.microsoft.com/en-us/windows/wsl/install-win10
 
 ### 2. Some unavailable `conda` packages
 A number of packages are not available for Windows via `conda`. At the time of writing, this includes:
-+ [MAFFT](https://mafft.cbrc.jp/alignment/software/)
-+ Clusta-Omega](http://www.clustal.org/omega/)
-+ [FastTree](http://meta.microbesonline.org/fasttree/)
++ [MAFFT](https://mafft.cbrc.jp/alignment/software/).
++ [Clusta-Omega](http://www.clustal.org/omega/).
++ [FastTree](http://meta.microbesonline.org/fasttree/).
 + [IQ-Tree](http://www.iqtree.org/).
-I recommend that you install at least mafft and FastTree, since we will be using both of them in the workshop. Whenever you see me run one of these programs through the Jupyter cells, just run them outside Jupyter yourself.
 
-For your real-world research, I strongly recommend IQ-Tree.
+I will be installing them inside my Jupyter notebooks using `conda`, but at the time of writing, you can't do that on Windows. I recommend that you instead download and install at least MAFFT and FastTree\*, since we will be using both of them in the workshop. Whenever you see me run one of those programs inside the Jupyter cells, just run them outside.<br/>
+\*For your real-world research, I strongly recommend IQ-Tree.
 
 -----------
 :copyright:**Copyright:** Everything in this repository (i.e. all of this workshop) is released under a [CC-NC-BY-SA v4.0 license](https://creativecommons.org/licenses/by-nc-sa/4.0/). That stands for _Creative-Commons, non-commercial, attribution-required, share-alike_ license. Please do read the specifications of the license but, in brief, this means that I'm happy for you to use any of this stuff in your own work or teaching. If you do redistribute it, though -- whether you change it a little or a lot or leave it exactly as is -- you must credit the original, and you must _never ever_ make any money off of the document itself, even if you make a lot of changes to it. You can of course get paid for teaching, but it must be clear to students that the documents themselves are all free (in both cost and access). Again, this applies both to my originals and to anything you make from them.
