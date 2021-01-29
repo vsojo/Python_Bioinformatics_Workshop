@@ -1,5 +1,5 @@
 # BioPython & Python Bioinformatics Workshop
-This repository contains all necessary data for my introductory Bioinformatics workshop.
+This repository contains all necessary data for my introductory Python Bioinformatics workshop.
 
 This is **not** an introductory _Python_ workshop. There's one of those [here](https://github.com/vsojo/Python_Workshop).
 
