@@ -18,11 +18,12 @@ The workshop introduces multiple basic bioinformatics topics, chiefly using BioP
 ## `conda` setup
 This workshop assumes that you're at least somewhat familiar with `conda` and Jupyter. If you are not, please take a look at the Jupyter intro [here](https://github.com/vsojo/Python_Workshop).
 1. Make sure you have [`conda`](https://www.anaconda.com/products/individual) (either Anaconda or Miniconda) and are using a `conda` environment that has all the required packages. For example, in case you haven't already, I would recommend doing the following in a terminal(Mac/Linux) or the Anaconda prompt (Windows):
+```bash
    conda update --all -y
    conda config --add channels bioconda
    conda config --add channels conda-forge
    conda create -n bioinfo jupyter jupyterlab biopython
-   
+```
 2. Activate the environment (unless you're using the base/root environment):
    conda activate bioinfo
 
