@@ -14,7 +14,7 @@ The workshop introduces multiple basic bioinformatics topics, chiefly using BioP
 
 :pencil: I am always very happy to receive comments and suggestions for improvement at vsojo@amnh.org
 
-
+---
 ## `conda` setup
 This workshop assumes that you're at least somewhat familiar with `conda` and Jupyter. If you are not, please take a look at the Jupyter intro [here](https://github.com/vsojo/Python_Workshop).
 1. Make sure you have [`conda`](https://www.anaconda.com/products/individual) (either Anaconda or Miniconda) and are using a `conda` environment that has all the required packages. For example, in case you haven't already, I would recommend doing the following in a terminal(Mac/Linux) or the Anaconda prompt (Windows):
@@ -31,7 +31,7 @@ This workshop assumes that you're at least somewhat familiar with `conda` and Ju
 
 A browser window with Jupyter Lab will open.
 
-
+---
 ## How to follow this workshop
 I recommend that you:
 1. Open the file called .BEG.ipynb for the lesson that you want to follow.
@@ -41,7 +41,7 @@ I recommend that you:
 Once you're done, your Notebook should look like the .END.ipynb file.
 Alternatively, you could just use the .END.ipynb file, which has all the code in it. 
 
-
+---
 ## :warning: Warnings for Windows users :warning:
 ### 1. Activating Linux inside Windows
 You need to activate the Windows Subsystem for Linux (WSL) and have a valid Linux installation inside your Windows machine.
