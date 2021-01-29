@@ -15,7 +15,7 @@ The workshop introduces multiple basic bioinformatics topics, chiefly using BioP
 :pencil: I am always very happy to receive comments and suggestions for improvement at vsojo@amnh.org
 
 
-# `conda` setup
+## `conda` setup
 This workshop assumes that you're at least somewhat familiar with `conda` and Jupyter. If you are not, please take a look at the Jupyter intro [here](https://github.com/vsojo/Python_Workshop).
 1. Make sure you have [`conda`](https://www.anaconda.com/products/individual) (either Anaconda or Miniconda) and are using a `conda` environment that has all the required packages. For example, in case you haven't already, I would recommend doing the following in a terminal(Mac/Linux) or the Anaconda prompt (Windows):
    conda update --all -y
@@ -32,7 +32,7 @@ This workshop assumes that you're at least somewhat familiar with `conda` and Ju
 A browser window with Jupyter Lab will open.
 
 
-# How to follow this workshop
+## How to follow this workshop
 I recommend that you:
 1. Open the file called .BEG.ipynb for the lesson that you want to follow.
 2. Open the corresponding .html file.
@@ -42,14 +42,14 @@ Once you're done, your Notebook should look like the .END.ipynb file.
 Alternatively, you could just use the .END.ipynb file, which has all the code in it. 
 
 
-# :warning: Warnings for Windows users :warning:
-## 1. Activating Linux inside Windows
+## :warning: Warnings for Windows users :warning:
+### 1. Activating Linux inside Windows
 You need to activate the Windows Subsystem for Linux (WSL) and have a valid Linux installation inside your Windows machine.
 This is a little involved but much easier than in previous times. You don't need a virtual machine or dual-boot system. Linux just works like an app inside your Windows machine, but since Linux is so powerful, you need to allow some special permissions.
 Take a look here:
 https://docs.microsoft.com/en-us/windows/wsl/install-win10
 
-## 2. Some unavailable `conda` packages
+### 2. Some unavailable `conda` packages
 A number of packages are not available for Windows via `conda`. At the time of writing, this includes:
 + [MAFFT](https://mafft.cbrc.jp/alignment/software/)
 + Clusta-Omega](http://www.clustal.org/omega/)
