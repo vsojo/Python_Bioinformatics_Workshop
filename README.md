@@ -1,9 +1,8 @@
 # BioPython & Python Bioinformatics Workshop
-This repository contains all necessary data for my introductory Python Bioinformatics workshop.
+This repository contains all necessary data for my **Introductory Python Bioinformatics Workshop**, including **BioPython**.
+To download, click on the green button on the top right that says ":arrow_down: **Code**", or [click here](https://github.com/vsojo/Python_Bioinformatics_Workshop/archive/refs/heads/main.zip).
 
-This is **not** an introductory _Python_ workshop. There's one of those [here](https://github.com/vsojo/Python_Workshop).
-
-The contents of the `.ZIP` and `.TAR.GZ` files are identical. Just pick whichever you prefer.
+:warning: Note that this is **not** an introductory _Python_ workshop. I have one of those [here](https://github.com/vsojo/Python_Workshop).
 
 The workshop introduces multiple basic bioinformatics topics, chiefly using BioPython, including:
 1. Accessing NCBI databases.
@@ -33,11 +32,16 @@ This workshop assumes that you're at least somewhat familiar with `conda` and Ju
    conda activate bioinfo
 ```
 
-3. Start Jupter Lab:
+3. Start Jupter Notebook:
+```
+   jupyter notebook
+```
+or Jupyter Lab:
+Lab:
 ```
    jupyter lab
 ```
-A browser window with Jupyter Lab will open.
+A browser window with Jupyter will open. Lab and Notebook are roughly equivalent. Lab is formally the future, but I still prefer Notebook because it presently runs better with some tools (most significantly Plotly, which we won't use here). For the purposes of this workshop, both will work equally well.
 
 ---
 ## How to follow this workshop
