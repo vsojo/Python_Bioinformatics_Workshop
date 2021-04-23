@@ -2,7 +2,7 @@
 This repository contains all necessary files for an **Introductory Python Bioinformatics Workshop**, using **BioPython** and other related tools.
 To download, click on the large "**Code**" button on the top right, or [click here](https://github.com/vsojo/Python_Bioinformatics_Workshop/archive/refs/heads/main.zip).
 
-## Contents
+## Workshop contents
 The workshop introduces multiple basic bioinformatics topics, chiefly using BioPython, including:
 1. Accessing NCBI databases (e.g., for nucleotide sequences or taxonomy).
 1. Reading and writing sequence files with BioPython.
