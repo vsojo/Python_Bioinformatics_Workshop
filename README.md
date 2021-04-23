@@ -23,7 +23,7 @@ This workshop assumes that you are at least somewhat familiar with `conda` and J
    conda update --all -y
    conda config --add channels bioconda
    conda config --add channels conda-forge
-   conda create -n bioinfo jupyter jupyterlab biopython ete3 mafft blast
+   conda create -n bioinfo jupyter jupyterlab biopython
 ```
 This will create an environment named `bioinfo`, containing all the necessary packages to get started with the workshop.
 
@@ -68,15 +68,14 @@ https://docs.microsoft.com/en-us/windows/wsl/install-win10
 ### 2. Some unavailable `conda` packages
 A number of packages are not available for Windows via `conda`. At the time of writing, this includes:
 + [MAFFT](https://mafft.cbrc.jp/alignment/software/).
-+ [Clusta-Omega](http://www.clustal.org/omega/).
++ [Clustal-Omega](http://www.clustal.org/omega/).
 + [FastTree](http://meta.microbesonline.org/fasttree/).
 + [IQ-Tree](http://www.iqtree.org/).
 
-I will be installing them inside my Jupyter notebooks using `conda`, but at the time of writing, you can't do that on Windows. I recommend that you first check if they now work, but assuming they don't, then please download and install at least MAFFT and FastTree\*, since we will be using both of them in the workshop. Then, whenever you see me run one of those programs inside the Jupyter cells in the workshop, you just run them outside Jupyter following the software instructions as you would any other software.<br/>
-\*For your real-world research, I strongly recommend that you look into IQ-Tree.
+In the workshop documents, I will be installing these packages from inside the Jupyter notebooks using `conda`. However, at the time of writing you cannot do that on Windows for these packages. I recommend that you first check whether they are available when you read this, but assuming they are not, then please download and install at least MAFFT and FastTree\*, since we will be using both of them in the workshop. Then, whenever we run one of those programs inside the Jupyter cells in the workshop, you just run them outside Jupyter following the software instructions as you would any other software.<br/>
+\*For your real-world research, I strongly recommend that you look into IQ-Tree over FastTree.
 
 -----------
 :copyright:**Copyright:** Everything in this repository (i.e. all of this workshop) is released under a [CC-NC-BY-SA v4.0 license](https://creativecommons.org/licenses/by-nc-sa/4.0/). That stands for _Creative-Commons, non-commercial, attribution-required, share-alike_ license. Please do read the specifications of the license but, in brief, this means that I am happy for you to use any of these documents or code in your own research or teaching. If you do redistribute it, however -- whether you change it a little or a lot or leave it exactly as is -- you must credit the original, and you must _never ever_ make any money off of the documents themselves, even if you make a lot of changes to them. You can of course get paid for teaching or for the work you create using what you learn here, but it must be clear to students that the documents themselves are all free (in both cost and access). Again, this applies both to my originals and to anything you make from them.
 
 :pencil: I am always very happy to receive comments and suggestions for improvement at vsojo@amnh.org
-
