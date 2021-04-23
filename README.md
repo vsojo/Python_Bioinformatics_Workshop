@@ -1,29 +1,33 @@
 # BioPython & Python Bioinformatics Workshop
-This repository contains all necessary data for my **Introductory Python Bioinformatics Workshop**, including **BioPython**.
-To download, click on the green button on the top right that says ":arrow_down: **Code**", or [click here](https://github.com/vsojo/Python_Bioinformatics_Workshop/archive/refs/heads/main.zip).
+This repository contains all necessary files for an **Introductory Python Bioinformatics Workshop**, using **BioPython** and other related tools.
+To download, click on the large "**Code**" button on the top right, or [click here](https://github.com/vsojo/Python_Bioinformatics_Workshop/archive/refs/heads/main.zip).
 
-:warning: Note that this is **not** an introductory _Python_ workshop. I have one of those [here](https://github.com/vsojo/Python_Workshop).
-
+## Contents
 The workshop introduces multiple basic bioinformatics topics, chiefly using BioPython, including:
-1. Accessing NCBI databases.
-1. Readaing and writing sequences with BioPython.
-1. Aligning sequences (with MAFFT or Clustal-Omega).
+1. Accessing NCBI databases (e.g., for nucleotide sequences or taxonomy).
+1. Reading and writing sequence files with BioPython.
+1. Aligning sequences (e.g., with MAFFT or Clustal-Omega).
 1. Building phylogenetic trees (with FastTree or IQ-Tree).
-1. Parsing those trees and creating images with ETE-3.
-
-:pencil: I am always very happy to receive comments and suggestions for improvement at vsojo@amnh.org
+1. Parsing those trees and creating publication quality tree images with ETE-3.
 
 ---
-## Setting up `conda`
-This workshop assumes that you're at least somewhat familiar with `conda` and Jupyter. If you are not, please take a look at the Jupyter intro [here](https://github.com/vsojo/Python_Workshop).
-1. Make sure you have [`conda`](https://www.anaconda.com/products/individual) (either Anaconda or Miniconda) and are using a `conda` environment that has all the required packages. For example, in case you haven't already, I would recommend doing the following in a terminal(Mac/Linux) or the Anaconda prompt (Windows):
+## Requirements
+:warning: This workshop assumes familiarity with both basic Python and Jupyter Notebooks.<br/>
+If you have never used Python, I have a separate Introductory Python Workshop [here](https://github.com/vsojo/Python_Workshop).<br/>
+If you need a Python refresher and/or an introduction to Jupyter, I recommend using the Jupyter & Python refresher that I produced [here](https://github.com/vsojo/Python_Workshop/blob/master/JupyIntro_PythonRefresher.zip).
+
+### Setting up `conda`
+This workshop assumes that you are at least somewhat familiar with `conda` and Jupyter. If you are not, please take a look at the Jupyter intro linked above, which covers conda.
+1. Make sure you have [`conda`](https://www.anaconda.com/products/individual) (through either Anaconda or Miniconda) and are using a `conda` environment that has all the required packages. For example, in case you haven't already, I would recommend doing the following in a terminal(Mac/Linux) or the Anaconda prompt (Windows) after installing conda:
 ```bash
    conda update --all -y
    conda config --add channels bioconda
    conda config --add channels conda-forge
-   conda create -n bioinfo jupyter jupyterlab biopython
+   conda create -n bioinfo jupyter jupyterlab biopython ete3 mafft blast
 ```
-2. Update your environmnent if you haven't done so in a while:
+This will create an environment named `bioinfo`, containing all the necessary packages to get started with the workshop.
+
+2. If you already have such an environment, update it regularly (every couple of weeks):
 ```
    conda update -y -n bioinfo
 ```
@@ -41,7 +45,7 @@ Lab:
 ```
    jupyter lab
 ```
-A browser window with Jupyter will open. Lab and Notebook are roughly equivalent. Lab is formally the future, but I still prefer Notebook because it presently runs better with some tools (most significantly Plotly, which we won't use here). For the purposes of this workshop, both will work equally well.
+A browser window with Jupyter will open. Lab and Notebook are roughly equivalent. Lab is formally the future, but I would still recommend Notebook because it presently runs better with some tools (most significantly Plotly, which we won't use here). For the purposes of this workshop, both will work equally well.
 
 ---
 ## How to follow this workshop
@@ -51,7 +55,7 @@ I recommend that you:
 3. Use the HTML file as reference to write the code in the .BEG.ipynb file.
 
 Once you're done, your Notebook should look like the .END.ipynb file.
-Alternatively, you could just use the .END.ipynb file, which has all the code in it. 
+Alternatively, you could just use the .END.ipynb file, which has all the code in it, but you would miss out on learning by writing the code yourself. 
 
 ---
 ## :warning: Warnings for Windows users :warning:
@@ -72,4 +76,7 @@ I will be installing them inside my Jupyter notebooks using `conda`, but at the 
 \*For your real-world research, I strongly recommend that you look into IQ-Tree.
 
 -----------
-:copyright:**Copyright:** Everything in this repository (i.e. all of this workshop) is released under a [CC-NC-BY-SA v4.0 license](https://creativecommons.org/licenses/by-nc-sa/4.0/). That stands for _Creative-Commons, non-commercial, attribution-required, share-alike_ license. Please do read the specifications of the license but, in brief, this means that I'm happy for you to use any of this stuff in your own work or teaching. If you do redistribute it, though -- whether you change it a little or a lot or leave it exactly as is -- you must credit the original, and you must _never ever_ make any money off of the document itself, even if you make a lot of changes to it. You can of course get paid for teaching, but it must be clear to students that the documents themselves are all free (in both cost and access). Again, this applies both to my originals and to anything you make from them.
+:copyright:**Copyright:** Everything in this repository (i.e. all of this workshop) is released under a [CC-NC-BY-SA v4.0 license](https://creativecommons.org/licenses/by-nc-sa/4.0/). That stands for _Creative-Commons, non-commercial, attribution-required, share-alike_ license. Please do read the specifications of the license but, in brief, this means that I am happy for you to use any of these documents or code in your own research or teaching. If you do redistribute it, however -- whether you change it a little or a lot or leave it exactly as is -- you must credit the original, and you must _never ever_ make any money off of the documents themselves, even if you make a lot of changes to them. You can of course get paid for teaching or for the work you create using what you learn here, but it must be clear to students that the documents themselves are all free (in both cost and access). Again, this applies both to my originals and to anything you make from them.
+
+:pencil: I am always very happy to receive comments and suggestions for improvement at vsojo@amnh.org
+
