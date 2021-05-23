@@ -3,16 +3,16 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Py212_BioPython_Reading_and_writing_sequences</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Py212_BioPython_Reading_and_writing_sequences.END</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
 
 <style type="text/css">
     pre { line-height: 125%; }
-td.linenos pre { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-td.linenos pre.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 .highlight .hll { background-color: var(--jp-cell-editor-active-background) }
 .highlight { background: var(--jp-cell-editor-background); color: var(--jp-mirror-editor-variable-color) }
@@ -14282,6 +14282,7 @@ a.anchor-link {
 &emsp;<a href="#Reading-single-sequence-files-using-BioPython&#39;s-SeqIO.read\(\">Reading single-sequence files using BioPython's SeqIO.read() </a>-)<br/>
 &emsp;<a href="#Extracting-features-and-their-sequences-in-a-BioPython-record">Extracting features and their sequences in a BioPython record</a><br/>
 &emsp;<a href="#Creating-new-records-and-writing-them-to-a-file">Creating new records and writing them to a file</a><br/>
+&emsp;<a href="#Reading-multiple-independent-files-the-proper-way">Reading multiple independent files the proper way</a><br/>
 &emsp;<a href="#Reading-a-file-with-multiple-sequences-using-SeqIO.parse\(\">Reading a file with multiple sequences using SeqIO.parse()</a>)<br/>
 &emsp;&emsp;<a href="#Should-I-use-SeqIO.parse\(\">Should I use SeqIO.parse() or SeqIO.read() to load my sequence file?</a>-or-SeqIO.read()-to-load-my-sequence-file?)<br/></p>
 
@@ -14517,13 +14518,12 @@ REFERENCE   2  (bases 1 to 16493)
     <span class="k">for</span> <span class="n">gb_filename</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">gb_filename</span> <span class="o">=</span> <span class="n">gb_filename</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="c1"># Remove the \n at the end of each line, always necessary in Python</span>
         
-        <span class="c1"># Read this file into a BioPython record</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">gb_filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">g</span><span class="p">:</span> <span class="c1"># can&#39;t use f, we&#39;re using it in the upper loop</span>
-            <span class="c1"># Read the file into a BioPython sequence record</span>
-            <span class="n">rec</span> <span class="o">=</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="s1">&#39;gb&#39;</span><span class="p">)</span> <span class="c1"># We specify &#39;gb&#39; because it&#39;s a GenBank file.</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded record </span><span class="si">{</span><span class="n">rec</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">, whose description is:</span><span class="se">\t</span><span class="si">{</span><span class="n">rec</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="c1"># Store that record into the list (VERY BAD IDEA if you have huge data)</span>
-            <span class="n">seqrecs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
+        <span class="c1"># Read the file into a BioPython sequence record</span>
+        <span class="n">rec</span> <span class="o">=</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">gb_filename</span><span class="p">,</span> <span class="s1">&#39;gb&#39;</span><span class="p">)</span> <span class="c1"># We specify &#39;gb&#39; because it&#39;s a GenBank file.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded record </span><span class="si">{</span><span class="n">rec</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">, whose description is:</span><span class="se">\t</span><span class="si">{</span><span class="n">rec</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># Store that record into the list (VERY BAD IDEA if you have huge data! see</span>
+        <span class="c1"># note below and better alternative towards the end of this notebook)</span>
+        <span class="n">seqrecs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14559,7 +14559,9 @@ Loaded record L21885.1, whose description is:	Ailurus fulgens mitochondrial 12S 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>We now have our four sequence records in the <code>seqrecs</code> list.</p>
-<p>⚠️ It is typically a bad idea to store records into a <code>list</code> as we're doing here. Instead, we should process them one by one in their entirety if possible. Here, I wanted to keep the steps separate from each other for educational purposes, so the list method works since it's only 4 records. However, in real bioinformatics research, you should aim for a single <code>for</code> loop in which everything happens, one record at a time. That way, we would release the memory at the end of each iteration, loading only one record into memory at any given time. With the <code>list</code> method, we're holding everything in memory simultaneously – a terrible idea for big data.</p>
+<p>⚠️ <strong>Important</strong> ⚠️<br/>
+It is typically a very bad idea to store records into a <code>list</code>, as we did here. This is because all records will be loaded together onto memory, as opposed to one at a time. With thousands of records and gigabytes of data, this would not be viable. Instead, we should process the records one by one in their entirety if possible, and we do so <a href="#Reading-multiple-independent-files-the-right-way">towards the end of this notebook</a>.</p>
+<p>However, for the time being, we will keep going using the list. This will allow us to explore the steps separately from each other, for educational purposes. Since it's only 4 records, we will be fine. Then, at the end, we will integrate it all and look at a production-level alternative.</p>
 
 </div>
 </div>
@@ -14783,7 +14785,7 @@ Processing record L21885.1, whose full sequence is:	AAATAGTTTA...GAG
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Good! Let's take a look at the full file:</p>
+<p>Good! Let's take a look at the full file. I recommend that you open it outside (e.g. through the Jupyter file navigator), but we can also use the shell command <code>cat</code> to see its entire contents:</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14884,13 +14886,119 @@ TGAAATTAAAACCTAAAGGTGGATTTAGTAGTAAATTAAGAATAGAGAG
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<hr>
 <p>⚠️This file was short, so it was ok to print it all to screen with <code>cat</code>. That's often not the case in bioinformatics and you should instead use <code>grep</code> or <code>head</code>.</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<hr>
+<h2 id="Reading-multiple-independent-files-the-proper-way">Reading multiple independent files the proper way<a class="anchor-link" href="#Reading-multiple-independent-files-the-proper-way">&#182;</a></h2><p>Above we loaded all the records into a list. This would have been a terrible idea had we been working with thousands of records (not uncommon at all in bioinformatics).</p>
+<p>Since in this case we didn't need to process the records together (they are all independent from each other), we could have just done everything in the very first <code>for</code> loop. That way, we would release the memory at the end of each iteration, loading only one record into memory at any given time.</p>
+<p>In this section we explore how that would look.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="First,-we-define-the-names-of-the-input-and-output-files">First, we define the names of the input and output files<a class="anchor-link" href="#First,-we-define-the-names-of-the-input-and-output-files">&#182;</a></h4>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Input file with the names of the records that hold our desired sequences</span>
+<span class="n">gb_files_file</span> <span class="o">=</span> <span class="s1">&#39;gb_files.list&#39;</span>
+<span class="c1"># Output file to hold the extracted desired sequences</span>
+<span class="n">multi_fasta_file</span> <span class="o">=</span> <span class="s2">&quot;RedPanda_12S_rRNA.unaligned.fasta&quot;</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="Then-we-run-the-entire-process-above,-but-in-a-single-for-loop">Then we run the entire process above, but in a single <code>for</code> loop<a class="anchor-link" href="#Then-we-run-the-entire-process-above,-but-in-a-single-for-loop">&#182;</a></h4><p>(i.e., we clear the output file, we open the file with the list of input files, we then open each input file one at a time, extract any <code>12S rRNA</code> records, and export those to the multi-fasta output file).</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># We create the output file empty, or empty it if it already existed (otherwise,</span>
+<span class="c1"># every time we run the append below, the file will just keep growing endlessly)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">multi_fasta_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+  <span class="k">pass</span> <span class="c1"># this means &quot;do nothing&quot; in Python</span>
+
+<span class="c1"># Read each of the record files, extract the desired sequences, and export them to a multifasta file</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">gb_files_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+  <span class="k">for</span> <span class="n">gb_filename</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">gb_filename</span> <span class="o">=</span> <span class="n">gb_filename</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    
+    <span class="n">rec</span> <span class="o">=</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">gb_filename</span><span class="p">,</span> <span class="s1">&#39;gb&#39;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">rec</span><span class="o">.</span><span class="n">features</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">feature</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;gene&#39;</span> <span class="ow">and</span> <span class="s1">&#39;12S rRNA&#39;</span> <span class="ow">in</span> <span class="n">feature</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">[</span><span class="s1">&#39;gene&#39;</span><span class="p">]:</span>
+        <span class="c1"># Create a new BioPython record</span>
+        <span class="n">newrec</span> <span class="o">=</span> <span class="n">SeqRecord</span><span class="p">(</span>
+          <span class="n">feature</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">rec</span><span class="o">.</span><span class="n">seq</span><span class="p">),</span> <span class="c1"># The raw sequence, cut to the right positions</span>
+          <span class="nb">id</span> <span class="o">=</span> <span class="n">rec</span><span class="o">.</span><span class="n">id</span> <span class="o">+</span> <span class="s1">&#39;.12S_rRNA&#39;</span><span class="p">,</span>
+          <span class="n">description</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;12S rRNA gene for red panda (Ailurus fulgens) from record </span><span class="si">{</span><span class="n">rec</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Write the new record to the multifasta file</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">multi_fasta_file</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">g</span><span class="p">:</span> <span class="c1"># Can&#39;t use `f` again, since we&#39;re still inside the upper `with`</span>
+          <span class="n">g</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">newrec</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;fasta&#39;</span><span class="p">))</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Appended new record </span><span class="si">{</span><span class="n">newrec</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">, extracted from </span><span class="si">{</span><span class="n">gb_filename</span><span class="si">}</span><span class="s2">, to </span><span class="si">{</span><span class="n">multi_fasta_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Appended new record NC_011124.1.12S_rRNA, extracted from GenBank/NC_011124.1.gb, to RedPanda_12S_rRNA.unaligned.fasta
+Appended new record AM711897.1.12S_rRNA, extracted from GenBank/AM711897.1.gb, to RedPanda_12S_rRNA.unaligned.fasta
+Appended new record Y08511.1.12S_rRNA, extracted from GenBank/Y08511.1.gb, to RedPanda_12S_rRNA.unaligned.fasta
+Appended new record L21885.1.12S_rRNA, extracted from GenBank/L21885.1.gb, to RedPanda_12S_rRNA.unaligned.fasta
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>⚠️ Note that in the second <code>with</code> we use <code>g</code> as the name of the file handle, as opposed the the more traditional <code>f</code>. This is because we're still inside the upper <code>with</code>, in which we had already used <code>f</code> as the file handle.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<hr>
 <h2 id="Reading-a-file-with-multiple-sequences-using-SeqIO.parse()">Reading a file with multiple sequences using <code>SeqIO.parse()</code><a class="anchor-link" href="#Reading-a-file-with-multiple-sequences-using-SeqIO.parse()">&#182;</a></h2><p>We don't need to, but just so we know how to do it, let's read the file back in, using BioPython.</p>
 <p>⚠️ Above, when we read the GenBank files that had a <em>single sequence</em>, we used <strong><code>SeqIO.read()</code></strong>. Here, since we're reading a file with <em>multiple sequences</em>, we instead use <strong><code>SeqIO.parse()</code></strong>.</p>
 
@@ -14898,7 +15006,7 @@ TGAAATTAAAACCTAAAGGTGGATTTAGTAGTAAATTAAGAATAGAGAG
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">seqrecs</span> <span class="o">=</span> <span class="n">SeqIO</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">multi_fasta_file</span><span class="p">,</span> <span class="s1">&#39;fasta&#39;</span><span class="p">)</span>
@@ -14922,7 +15030,7 @@ TGAAATTAAAACCTAAAGGTGGATTTAGTAGTAAATTAAGAATAGAGAG
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>&lt;Bio.SeqIO.FastaIO.FastaIterator object at 0x114652040&gt;
+<pre>&lt;Bio.SeqIO.FastaIO.FastaIterator object at 0x118502df0&gt;
 </pre>
 </div>
 </div>
@@ -14934,18 +15042,18 @@ TGAAATTAAAACCTAAAGGTGGATTTAGTAGTAAATTAAGAATAGAGAG
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>So, <code>SeqIO.parse()</code> gives us an iterator, in which each item corresponds to each of the independent sequences in the file, in this case our 4 sequences.</p>
+<p>So, <code>SeqIO.parse()</code> gives us an iterator, in which each item corresponds to one of the independent sequences in the file, in this case our 4 sequences.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">seqrecs</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="mi">50</span><span class="o">*</span><span class="s2">&quot;% &quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># Just a nice separator</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># Just a separator</span>
 </pre></div>
 
      </div>
@@ -14965,33 +15073,33 @@ TGAAATTAAAACCTAAAGGTGGATTTAGTAGTAAATTAAGAATAGAGAG
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>ID: NC_011124.1.12SrRNA
-Name: NC_011124.1.12SrRNA
-Description: NC_011124.1.12SrRNA 12S rRNA gene for Red Panda (Ailurus fulgens) record NC_011124.1
+<pre>ID: NC_011124.1.12S_rRNA
+Name: NC_011124.1.12S_rRNA
+Description: NC_011124.1.12S_rRNA 12S rRNA gene for red panda (Ailurus fulgens) from record NC_011124.1
 Number of features: 0
 Seq(&#39;CCAAAGGTTTGGTCCTAGCCTTCCCGTTAGTTCTTAATAAAATTACACATGCAA...AAC&#39;)
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 
-ID: AM711897.1.12SrRNA
-Name: AM711897.1.12SrRNA
-Description: AM711897.1.12SrRNA 12S rRNA gene for Red Panda (Ailurus fulgens) record AM711897.1
+
+ID: AM711897.1.12S_rRNA
+Name: AM711897.1.12S_rRNA
+Description: AM711897.1.12S_rRNA 12S rRNA gene for red panda (Ailurus fulgens) from record AM711897.1
 Number of features: 0
 Seq(&#39;CCAAAGGTTTGGTCCTAGCCTTCCCGTTAGTTCTTAATAAAATTACACATGCAA...AAC&#39;)
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 
-ID: Y08511.1.12SrRNA
-Name: Y08511.1.12SrRNA
-Description: Y08511.1.12SrRNA 12S rRNA gene for Red Panda (Ailurus fulgens) record Y08511.1
+
+ID: Y08511.1.12S_rRNA
+Name: Y08511.1.12S_rRNA
+Description: Y08511.1.12S_rRNA 12S rRNA gene for red panda (Ailurus fulgens) from record Y08511.1
 Number of features: 0
 Seq(&#39;CAAAGGTTTGGTCCTAGCCTTCCCGTTAGTTCTTAATAAAATTACACATGCAAG...AAC&#39;)
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 
-ID: L21885.1.12SrRNA
-Name: L21885.1.12SrRNA
-Description: L21885.1.12SrRNA 12S rRNA gene for Red Panda (Ailurus fulgens) record L21885.1
+
+ID: L21885.1.12S_rRNA
+Name: L21885.1.12S_rRNA
+Description: L21885.1.12S_rRNA 12S rRNA gene for red panda (Ailurus fulgens) from record L21885.1
 Number of features: 0
 Seq(&#39;AAATAGTTTAGTATAACAAAACTATTCGCCAGAGAACTACTAGCAATAGCCTAA...GAG&#39;)
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
 
 </pre>
 </div>
@@ -15012,12 +15120,12 @@ Seq(&#39;AAATAGTTTAGTATAACAAAACTATTCGCCAGAGAACTACTAGCAATAGCCTAA...GAG&#39;)
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="Should-I-use-SeqIO.parse()-or-SeqIO.read()-to-load-my-sequence-file?">Should I use <code>SeqIO.parse()</code> or <code>SeqIO.read()</code> to load my sequence file?<a class="anchor-link" href="#Should-I-use-SeqIO.parse()-or-SeqIO.read()-to-load-my-sequence-file?">&#182;</a></h3><ul>
-<li>Use <strong><code>SeqIO.read()</code></strong> to load files that contain <strong>only one sequence</strong> (e.g., a single <code>&gt;</code> in the case of a FASTA file).</li>
-<li>Use <strong><code>SeqIO.parse()</code></strong> to load files with <strong>multiple sequences</strong> (multiple <code>&gt;</code> headers in the case of a FASTA file).</li>
+<li>Use <strong><code>SeqIO.read()</code></strong> to load files that contain <strong>only one sequence</strong> (e.g., a single <code>&gt;</code> in the case of a FASTA file). This returns a single record.</li>
+<li>Use <strong><code>SeqIO.parse()</code></strong> to load files with <strong>multiple sequences</strong> (multiple <code>&gt;</code> headers in the case of a FASTA file). This returns an iterator of records.</li>
 </ul>
-<p>Note that a GenBank file may have multiple <code>feature</code>, but it has only one <em>sequence</em>, so you should read it with <code>read()</code> as we did above.</p>
+<p>Note that a GenBank file may have multiple <code>feature</code>s, but it has only one <em>sequence</em>, so you should typically read it with <code>read()</code>, as we did above.</p>
 <p>Note also that <code>.parse()</code> returns an <code>iterator</code>, in which each item is a record that corresponds to each of the sequences in the original file.<br/>
-Conversely, <code>.read()</code> returns a BioPython sequence record directly, so you should only use it if you have a single sequence in the file.</p>
+Conversely, <code>.read()</code> returns a BioPython sequence record directly, so you should only use it if you have a single sequence in the file, or you only care for the first one.</p>
 
 </div>
 </div>
