@@ -14299,7 +14299,7 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span><span class="nb">echo</span> <span class="nv">$CONDA_DEFAULT_ENV</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> <span class="nb">echo</span> <span class="nv">$CONDA_DEFAULT_ENV</span>
 </pre></div>
 
      </div>
@@ -14331,7 +14331,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>(If you're on Windows, remember that every line with <code>!my code</code> should be changed to <code>!wsl my code</code> and you should have an active <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">WSL installation</a>)</p>
+<p>(If you're on Windows, remember that every line with <code>! some code</code> should be changed to <code>!wsl some code</code> and you should have an active <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">WSL installation</a>)</p>
 
 </div>
 </div>
@@ -14386,7 +14386,7 @@ a.anchor-link {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">gb_files_file</span> <span class="o">=</span> <span class="s1">&#39;gb_files.list&#39;</span>
-<span class="o">!</span>cat <span class="nv">$gb_files_file</span>
+<span class="o">!</span> cat <span class="nv">$gb_files_file</span>
 </pre></div>
 
      </div>
@@ -14437,7 +14437,7 @@ GenBank/L21885.1.gb
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>head -20 GenBank/NC_011124.1.gb
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> head -20 GenBank/NC_011124.1.gb
 </pre></div>
 
      </div>
@@ -14488,7 +14488,8 @@ REFERENCE   2  (bases 1 to 16493)
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Go ahead and take a look at the full file in a text editor such as Notepad++ (Win) or Sublime/BBEdit (Mac), or you can use the Jupyter browser itself.</p>
+<hr>
+<p>Go ahead and take a look at the full file in a text editor such as Notepad++ (Win) or Sublime/BBEdit (Mac); or you can just use the Jupyter browser itself.</p>
 
 </div>
 </div>
@@ -14560,8 +14561,8 @@ Loaded record L21885.1, whose description is:	Ailurus fulgens mitochondrial 12S 
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>We now have our four sequence records in the <code>seqrecs</code> list.</p>
 <p>⚠️ <strong>Important</strong> ⚠️<br/>
-It is typically a very bad idea to store records into a <code>list</code>, as we did here. This is because all records will be loaded together onto memory, as opposed to one at a time. With thousands of records and gigabytes of data, this would not be viable. Instead, we should process the records one by one in their entirety if possible, and we do so <a href="#Reading-multiple-independent-files-the-right-way">towards the end of this notebook</a>.</p>
-<p>However, for the time being, we will keep going using the list. This will allow us to explore the steps separately from each other, for educational purposes. Since it's only 4 records, we will be fine. Then, at the end, we will integrate it all and look at a production-level alternative.</p>
+It is typically a very bad idea to store records into a <code>list</code>, as we did here. This is because, with lists, all records will be loaded together onto memory, as opposed to one at a time. With thousands of records and gigabytes of data, this would not be viable. Instead, we should process the records one by one in their entirety if possible, and we do so <a href="#Reading-multiple-independent-files-the-right-way">towards the end of this notebook</a>.</p>
+<p>However, for the time being, we will keep going using the list. This will allow us to explore the steps separately from each other, for educational purposes. Since it's only 4 records, we will be fine. Then, at the end or this notebook, we will integrate it all and look at a <strong>production-level alternative</strong>.</p>
 
 </div>
 </div>
@@ -14578,7 +14579,7 @@ It is typically a very bad idea to store records into a <code>list</code>, as we
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>grep -B1 -A4 <span class="s2">&quot;12S rRNA&quot;</span> GenBank/AM711897.1.gb
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> grep -B1 -A4 <span class="s2">&quot;12S rRNA&quot;</span> GenBank/AM711897.1.gb
 <span class="c1"># -A4 means &quot;show me 4 extra lines After the one I&#39;m looking for&quot;.</span>
 <span class="c1"># And you can guess what -B1 means.</span>
 </pre></div>
@@ -14794,7 +14795,7 @@ Processing record L21885.1, whose full sequence is:	AAATAGTTTA...GAG
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>cat <span class="nv">$multi_fasta_file</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> cat <span class="nv">$multi_fasta_file</span>
 </pre></div>
 
      </div>
@@ -15052,8 +15053,8 @@ Appended new record L21885.1.12S_rRNA, extracted from GenBank/L21885.1.gb, to Re
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">seqrecs</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># Just a separator</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># Just a separator</span>
 </pre></div>
 
      </div>

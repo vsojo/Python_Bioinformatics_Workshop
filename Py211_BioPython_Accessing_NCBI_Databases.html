@@ -10,9 +10,9 @@
 
 <style type="text/css">
     pre { line-height: 125%; }
-td.linenos pre { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-td.linenos pre.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 .highlight .hll { background-color: var(--jp-cell-editor-active-background) }
 .highlight { background: var(--jp-cell-editor-background); color: var(--jp-mirror-editor-variable-color) }
@@ -14261,7 +14261,7 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="Accessing-NCBI-Databases-with-BioPython">Accessing NCBI Databases with BioPython<a class="anchor-link" href="#Accessing-NCBI-Databases-with-BioPython">&#182;</a></h1><p>(Víctor Sojo | vsojo@amnh.org)</p>
 <p>Here we will be introducing <strong>BioPython</strong> and using it to interface with NCBI databases.</p>
-<p><strong>References:</strong> To prepare this document, I made very heavy use of:</p>
+<p><strong>References:</strong></p>
 <ul>
 <li>The <a href="http://biopython.org/DIST/docs/tutorial/Tutorial.html"><em>BioPython tutorial</em></a>.</li>
 <li>Tiago Antao's book <a href="https://www.packtpub.com/product/bioinformatics-with-python-cookbook-second-edition/9781789344691"><em>Bioinformatics with Python Cookbook</em></a>, which I highly recommend. You may be able to access it for free from your library (e.g., Columbia University has it in digital).</li>
@@ -14298,7 +14298,7 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span><span class="nb">echo</span> <span class="nv">$CONDA_DEFAULT_ENV</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> <span class="nb">echo</span> <span class="nv">$CONDA_DEFAULT_ENV</span>
 </pre></div>
 
      </div>
@@ -14330,13 +14330,15 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Looking good for me. If you don't see <code>bioinfo</code> but instead <code>base</code> or <code>root</code>, you probably should close this notebook, stop jupyter by hitting <strong>Quit</strong> at the top-right of the main Jupyter browser webpage (or by issuing <code>jupyter notebook stop</code> on a new terminal tab or hitting Ctrl+C twice in the Terminal tab running Jupyter), then load your <code>conda</code> environment:</p>
+
+<pre><code>Looking good for me. If you don't see `bioinfo` but instead `base` or `root`, you should probably close this notebook, stop jupyter by hitting **Quit** at the top-right of the main Jupyter browser webpage (or by issuing `jupyter notebook stop` on a new terminal tab or hitting Ctrl+C twice in the Terminal tab running Jupyter), then load your `conda` environment from the terminal/Anaconda prompt:
+</code></pre>
 <div class="highlight"><pre><span></span>conda activate bioinfo
 </pre></div>
 <p>and restart Jupyter:</p>
 <div class="highlight"><pre><span></span>jupyter notebook
 </pre></div>
-<p>⚠️<strong>Windows users:</strong> Every time I write <code>!something</code> you should instead write <strong><code>!wsl</code></strong><code>something</code>. For this to work, you need to have the Windows Subsystem for Linux (WSL) activated. You need to do that otherwise a significant part of the code in this workshop won't work for you. <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Learn about the WSL here</a>.</p>
+<p>⚠️ <strong>Windows users:</strong> ⚠️ Every time I write <code>! something</code> you should instead write <strong><code>!wsl something</code></strong>. For this to work, you need to have the Windows Subsystem for Linux (WSL) activated. You need to do that otherwise a significant part of the code in this workshop won't work for you. <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Learn about the WSL here</a>.</p>
 
 </div>
 </div>
@@ -14351,7 +14353,7 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>conda install biopython -y
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> conda install biopython -y
 </pre></div>
 
      </div>
@@ -14374,6 +14376,17 @@ a.anchor-link {
 <pre>Collecting package metadata (current_repodata.json): done
 Solving environment: done
 
+
+==&gt; WARNING: A newer version of conda exists. &lt;==
+  current version: 4.10.1
+  latest version: 4.10.3
+
+Please update conda by running
+
+    $ conda update -n base conda
+
+
+
 # All requested packages already installed.
 
 </pre>
@@ -14387,7 +14400,7 @@ Solving environment: done
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>In my case, I already have it, so <code>conda</code> just searches for updates and then lets me know that I do have it. It will probably take a couple of minutes if you don't have it installed.</p>
+<p>In my case, I already have <code>biopython</code>, so <code>conda</code> just searches for updates and then lets me know that I do have the requested packages installed. It will probably take a couple of minutes if you don't have it installed.</p>
 
 </div>
 </div>
@@ -14556,7 +14569,7 @@ Solving environment: done
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>&lt;http.client.HTTPResponse object at 0x111979eb0&gt;
+<pre>&lt;http.client.HTTPResponse object at 0x1189cbcd0&gt;
 </pre>
 </div>
 </div>
@@ -14618,7 +14631,7 @@ Solving environment: done
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>{&#39;Count&#39;: &#39;4&#39;, &#39;RetMax&#39;: &#39;4&#39;, &#39;RetStart&#39;: &#39;0&#39;, &#39;IdList&#39;: [&#39;195934696&#39;, &#39;155368555&#39;, &#39;1871550&#39;, &#39;417984&#39;], &#39;TranslationSet&#39;: [{&#39;From&#39;: &#39;&#34;Ailurus fulgens&#34;[Organism]&#39;, &#39;To&#39;: &#39;&#34;Ailurus fulgens&#34;[Organism]&#39;}], &#39;TranslationStack&#39;: [{&#39;Term&#39;: &#39;&#34;12S rRNA&#34;[Gene Name]&#39;, &#39;Field&#39;: &#39;Gene Name&#39;, &#39;Count&#39;: &#39;7878&#39;, &#39;Explode&#39;: &#39;N&#39;}, {&#39;Term&#39;: &#39;&#34;Ailurus fulgens&#34;[Organism]&#39;, &#39;Field&#39;: &#39;Organism&#39;, &#39;Count&#39;: &#39;381&#39;, &#39;Explode&#39;: &#39;Y&#39;}, &#39;AND&#39;], &#39;QueryTranslation&#39;: &#39;&#34;12S rRNA&#34;[Gene Name] AND &#34;Ailurus fulgens&#34;[Organism]&#39;}
+<pre>{&#39;Count&#39;: &#39;4&#39;, &#39;RetMax&#39;: &#39;4&#39;, &#39;RetStart&#39;: &#39;0&#39;, &#39;IdList&#39;: [&#39;195934696&#39;, &#39;155368555&#39;, &#39;1871550&#39;, &#39;417984&#39;], &#39;TranslationSet&#39;: [{&#39;From&#39;: &#39;&#34;Ailurus fulgens&#34;[Organism]&#39;, &#39;To&#39;: &#39;&#34;Ailurus fulgens&#34;[Organism]&#39;}], &#39;TranslationStack&#39;: [{&#39;Term&#39;: &#39;&#34;12S rRNA&#34;[Gene Name]&#39;, &#39;Field&#39;: &#39;Gene Name&#39;, &#39;Count&#39;: &#39;7977&#39;, &#39;Explode&#39;: &#39;N&#39;}, {&#39;Term&#39;: &#39;&#34;Ailurus fulgens&#34;[Organism]&#39;, &#39;Field&#39;: &#39;Organism&#39;, &#39;Count&#39;: &#39;425&#39;, &#39;Explode&#39;: &#39;Y&#39;}, &#39;AND&#39;], &#39;QueryTranslation&#39;: &#39;&#34;12S rRNA&#34;[Gene Name] AND &#34;Ailurus fulgens&#34;[Organism]&#39;}
 </pre>
 </div>
 </div>
@@ -14630,7 +14643,7 @@ Solving environment: done
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>The <code>ref_recs</code> variable seems to be a <code>dict</code>. To be honest, I can never make sense of dictionaries when they are printed like this. Let's use the <code>dict.items()</code> method and the marvelous f-strings to print it more legibly:</p>
+<p>The <code>ref_recs</code> variable seems to be a <code>dict</code>. I can never make sense of dictionaries when they are printed like this. Let's use the <code>dict.items()</code> method and the mighty f-strings to print it all more legibly:</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14640,7 +14653,7 @@ Solving environment: done
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">ref_recs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;-</span><span class="si">{</span><span class="n">key</span><span class="si">:</span><span class="s2">20s</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># the 20s means &quot;it&#39;s a string, and I want it to be 20 characters long&quot;</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;-</span><span class="si">{</span><span class="n">key</span><span class="si">:</span><span class="s2">20s</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># the 20s means &quot;it&#39;s a string, and I want it to be 20 characters long&quot;</span>
 </pre></div>
 
      </div>
@@ -14665,7 +14678,7 @@ Solving environment: done
 -RetStart            : 0
 -IdList              : [&#39;195934696&#39;, &#39;155368555&#39;, &#39;1871550&#39;, &#39;417984&#39;]
 -TranslationSet      : [{&#39;From&#39;: &#39;&#34;Ailurus fulgens&#34;[Organism]&#39;, &#39;To&#39;: &#39;&#34;Ailurus fulgens&#34;[Organism]&#39;}]
--TranslationStack    : [{&#39;Term&#39;: &#39;&#34;12S rRNA&#34;[Gene Name]&#39;, &#39;Field&#39;: &#39;Gene Name&#39;, &#39;Count&#39;: &#39;7878&#39;, &#39;Explode&#39;: &#39;N&#39;}, {&#39;Term&#39;: &#39;&#34;Ailurus fulgens&#34;[Organism]&#39;, &#39;Field&#39;: &#39;Organism&#39;, &#39;Count&#39;: &#39;381&#39;, &#39;Explode&#39;: &#39;Y&#39;}, &#39;AND&#39;]
+-TranslationStack    : [{&#39;Term&#39;: &#39;&#34;12S rRNA&#34;[Gene Name]&#39;, &#39;Field&#39;: &#39;Gene Name&#39;, &#39;Count&#39;: &#39;7977&#39;, &#39;Explode&#39;: &#39;N&#39;}, {&#39;Term&#39;: &#39;&#34;Ailurus fulgens&#34;[Organism]&#39;, &#39;Field&#39;: &#39;Organism&#39;, &#39;Count&#39;: &#39;425&#39;, &#39;Explode&#39;: &#39;Y&#39;}, &#39;AND&#39;]
 -QueryTranslation    : &#34;12S rRNA&#34;[Gene Name] AND &#34;Ailurus fulgens&#34;[Organism]
 </pre>
 </div>
@@ -14694,7 +14707,7 @@ Solving environment: done
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Here are the record Ids retrieved:&quot;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">rec_id</span> <span class="ow">in</span> <span class="n">ref_recs</span><span class="p">[</span><span class="s1">&#39;IdList&#39;</span><span class="p">]:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">rec_id</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">rec_id</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14797,7 +14810,7 @@ Here are the record Ids retrieved:
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>&lt;Bio.SeqIO.InsdcIO.GenBankIterator object at 0x111979d30&gt;
+<pre>&lt;Bio.SeqIO.InsdcIO.GenBankIterator object at 0x118a80f10&gt;
 </pre>
 </div>
 </div>
@@ -14819,8 +14832,8 @@ Here are the record Ids retrieved:
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">rec</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gene_recs</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2"># # # RECORD #</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> # # #&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2"># # # RECORD </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> # # #&quot;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14842,7 +14855,7 @@ Here are the record Ids retrieved:
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>
 
-# # # RECORD #0 # # #
+# # # RECORD 0 # # #
 ID: NC_011124.1
 Name: NC_011124
 Description: Ailurus fulgens mitochondrion, complete genome
@@ -14865,7 +14878,7 @@ COMPLETENESS: full length.
 Seq(&#39;GTTAATGTAGCTTAATAAATAAAGCAAGGCACTGAAAATGCCTAGATGAGTTAC...TCT&#39;)
 
 
-# # # RECORD #1 # # #
+# # # RECORD 1 # # #
 ID: AM711897.1
 Name: AM711897
 Description: Ailurus fulgens complete mitochondrial genome
@@ -14884,7 +14897,7 @@ Number of features: 77
 Seq(&#39;GTTAATGTAGCTTAATAAATAAAGCAAGGCACTGAAAATGCCTAGATGAGTTAC...TCT&#39;)
 
 
-# # # RECORD #2 # # #
+# # # RECORD 2 # # #
 ID: Y08511.1
 Name: Y08511
 Description: A.fulgens mitochondrial 12S rRNA gene
@@ -14903,7 +14916,7 @@ Number of features: 3
 Seq(&#39;CAAAGGTTTGGTCCTAGCCTTCCCGTTAGTTCTTAATAAAATTACACATGCAAG...AAC&#39;)
 
 
-# # # RECORD #3 # # #
+# # # RECORD 3 # # #
 ID: L21885.1
 Name: AISMTRG12S
 Description: Ailurus fulgens mitochondrial 12S ribosomal RNA (12S rRNA) gene fragment
@@ -14950,8 +14963,8 @@ Seq(&#39;AAATAGTTTAGTATAACAAAACTATTCGCCAGAGAACTACTAGCAATAGCCTAA...GAG&#39;)
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">rec</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gene_recs</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2"># # # RECORD #</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> # # #&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2"># # # RECORD </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> # # #&quot;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14993,7 +15006,7 @@ Seq(&#39;AAATAGTTTAGTATAACAAAACTATTCGCCAGAGAACTACTAGCAATAGCCTAA...GAG&#39;)
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>&lt;Bio.SeqIO.InsdcIO.GenBankIterator object at 0x111ac9340&gt;
+<pre>&lt;Bio.SeqIO.InsdcIO.GenBankIterator object at 0x118a70ee0&gt;
 </pre>
 </div>
 </div>
@@ -15011,7 +15024,7 @@ Seq(&#39;AAATAGTTTAGTATAACAAAACTATTCGCCAGAGAACTACTAGCAATAGCCTAA...GAG&#39;)
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="To-keep-data-from-an-iterator-permanently,-convert-it-to-a-list-(inefficient)">To keep data from an iterator permanently, convert it to a <code>list</code> (inefficient)<a class="anchor-link" href="#To-keep-data-from-an-iterator-permanently,-convert-it-to-a-list-(inefficient)">&#182;</a></h3><p>If we don't want to keep the data in our iterator more permanently in memory, we need to convert it to a <code>list</code>, which is an <code>iterable</code>. The slight difference in name means you can go over lists as many times as you want.</p>
+<h3 id="To-permanently-keep-the-data-from-an-iterator,-you-could-convert-it-to-a-list-(inefficient)">To permanently keep the data from an iterator, you <em>could</em> convert it to a <code>list</code> (inefficient)<a class="anchor-link" href="#To-permanently-keep-the-data-from-an-iterator,-you-could-convert-it-to-a-list-(inefficient)">&#182;</a></h3><p>If we don't want to keep the data in our iterator more permanently in memory, we need to convert it to a <code>list</code>, which is an <code>iterable</code>. The slight difference in name means you can go over lists as many times as you want.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -15041,8 +15054,8 @@ Seq(&#39;AAATAGTTTAGTATAACAAAACTATTCGCCAGAGAACTACTAGCAATAGCCTAA...GAG&#39;)
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">rec</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gene_recs</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2"># # # RECORD #</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> # # #&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2"># # # RECORD </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> # # #&quot;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15064,7 +15077,7 @@ Seq(&#39;AAATAGTTTAGTATAACAAAACTATTCGCCAGAGAACTACTAGCAATAGCCTAA...GAG&#39;)
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>
 
-# # # RECORD #0 # # #
+# # # RECORD 0 # # #
 ID: NC_011124.1
 Name: NC_011124
 Description: Ailurus fulgens mitochondrion, complete genome
@@ -15087,7 +15100,7 @@ COMPLETENESS: full length.
 Seq(&#39;GTTAATGTAGCTTAATAAATAAAGCAAGGCACTGAAAATGCCTAGATGAGTTAC...TCT&#39;)
 
 
-# # # RECORD #1 # # #
+# # # RECORD 1 # # #
 ID: AM711897.1
 Name: AM711897
 Description: Ailurus fulgens complete mitochondrial genome
@@ -15106,7 +15119,7 @@ Number of features: 77
 Seq(&#39;GTTAATGTAGCTTAATAAATAAAGCAAGGCACTGAAAATGCCTAGATGAGTTAC...TCT&#39;)
 
 
-# # # RECORD #2 # # #
+# # # RECORD 2 # # #
 ID: Y08511.1
 Name: Y08511
 Description: A.fulgens mitochondrial 12S rRNA gene
@@ -15125,7 +15138,7 @@ Number of features: 3
 Seq(&#39;CAAAGGTTTGGTCCTAGCCTTCCCGTTAGTTCTTAATAAAATTACACATGCAAG...AAC&#39;)
 
 
-# # # RECORD #3 # # #
+# # # RECORD 3 # # #
 ID: L21885.1
 Name: AISMTRG12S
 Description: Ailurus fulgens mitochondrial 12S ribosomal RNA (12S rRNA) gene fragment
@@ -15170,19 +15183,40 @@ Seq(&#39;AAATAGTTTAGTATAACAAAACTATTCGCCAGAGAACTACTAGCAATAGCCTAA...GAG&#39;)
 <p>First, let's use the shell to create a folder to hold the <code>GenBank</code> files:</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">gb_dir</span> <span class="o">=</span> <span class="s2">&quot;GenBank&quot;</span> <span class="c1"># We define a variable so that we can reuse it later in this script</span>
-<span class="o">!</span>mkdir <span class="nv">$gb_dir</span>
+<span class="o">!</span> mkdir <span class="nv">$gb_dir</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>mkdir: GenBank: File exists
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -15225,7 +15259,7 @@ Seq(&#39;AAATAGTTTAGTATAACAAAACTATTCGCCAGAGAACTACTAGCAATAGCCTAA...GAG&#39;)
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>&lt;Bio.SeqIO.InsdcIO.GenBankIterator object at 0x111ac92b0&gt;
+<pre>&lt;Bio.SeqIO.InsdcIO.GenBankIterator object at 0x118ae4f70&gt;
 </pre>
 </div>
 </div>
@@ -15250,16 +15284,16 @@ Seq(&#39;AAATAGTTTAGTATAACAAAACTATTCGCCAGAGAACTACTAGCAATAGCCTAA...GAG&#39;)
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">gb_file_names</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># An empty list that will hold the file names</span>
 
 <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">gene_recs</span><span class="p">:</span>
-    <span class="c1"># Define a file name using the directory we just created, and the record&#39;s own ID:</span>
-    <span class="n">file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">gb_dir</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">rec</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">.gb&quot;</span>
-    <span class="c1"># Save the file using that file name</span>
-    <span class="n">SeqIO</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;gb&#39;</span><span class="p">)</span>
-    
-    <span class="c1"># We also want the list of files, so let&#39;s store them:</span>
-    <span class="n">gb_file_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
-    
-    <span class="c1"># And print some useful information to screen, just so that we know what&#39;s going on:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving record</span><span class="se">\t</span><span class="si">{</span><span class="n">rec</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="se">\t</span><span class="s2">to file</span><span class="se">\t</span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="c1"># Define a file name using the directory we just created, and the record&#39;s own ID:</span>
+  <span class="n">file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">gb_dir</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">rec</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">.gb&quot;</span>
+  <span class="c1"># Save the file using that file name</span>
+  <span class="n">SeqIO</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;gb&#39;</span><span class="p">)</span>
+
+  <span class="c1"># We also want the list of files, so let&#39;s store them:</span>
+  <span class="n">gb_file_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+
+  <span class="c1"># And print some useful information to screen, just so that we know what&#39;s going on:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saving record</span><span class="se">\t</span><span class="si">{</span><span class="n">rec</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="se">\t</span><span class="s2">to file</span><span class="se">\t</span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15305,7 +15339,7 @@ Saving record	L21885.1	to file	GenBank/L21885.1.gb
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>head GenBank/L21885.1.gb
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> head GenBank/L21885.1.gb
 </pre></div>
 
      </div>
@@ -15364,8 +15398,8 @@ SOURCE      mitochondrion Ailurus fulgens (lesser panda)
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">gb_file_list</span> <span class="o">=</span> <span class="s1">&#39;gb_files.list&#39;</span>
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">gb_file_list</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">gb_file_names</span><span class="p">:</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">gb_file_names</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15385,7 +15419,7 @@ SOURCE      mitochondrion Ailurus fulgens (lesser panda)
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>cat <span class="nv">$gb_file_list</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> cat <span class="nv">$gb_file_list</span>
 </pre></div>
 
      </div>
@@ -15464,7 +15498,7 @@ GenBank/L21885.1.gb
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">tax_records</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15542,9 +15576,9 @@ QueryTranslation red panda[All Names]
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">tax_rec</span> <span class="ow">in</span> <span class="n">tax_records</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">tax_rec</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">:</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">tax_rec</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">:</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15566,7 +15600,7 @@ QueryTranslation red panda[All Names]
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>TaxId	:	9649
 ScientificName	:	Ailurus fulgens
-OtherNames	:	{&#39;CommonName&#39;: [&#39;red panda&#39;], &#39;Includes&#39;: [], &#39;Inpart&#39;: [], &#39;Acronym&#39;: [], &#39;Name&#39;: [{&#39;ClassCDE&#39;: &#39;authority&#39;, &#39;DispName&#39;: &#39;Ailurus fulgens Cuvier, 1825&#39;}], &#39;GenbankSynonym&#39;: [], &#39;GenbankAnamorph&#39;: [], &#39;Synonym&#39;: [], &#39;Misnomer&#39;: [], &#39;Teleomorph&#39;: [], &#39;EquivalentName&#39;: [], &#39;Anamorph&#39;: [], &#39;Misspelling&#39;: [], &#39;GenbankCommonName&#39;: &#39;lesser panda&#39;}
+OtherNames	:	{&#39;Anamorph&#39;: [], &#39;GenbankSynonym&#39;: [], &#39;Misspelling&#39;: [], &#39;Teleomorph&#39;: [], &#39;Synonym&#39;: [], &#39;Inpart&#39;: [], &#39;Includes&#39;: [], &#39;Acronym&#39;: [], &#39;Misnomer&#39;: [], &#39;GenbankAnamorph&#39;: [], &#39;Name&#39;: [{&#39;ClassCDE&#39;: &#39;authority&#39;, &#39;DispName&#39;: &#39;Ailurus fulgens Cuvier, 1825&#39;}], &#39;EquivalentName&#39;: [], &#39;CommonName&#39;: [&#39;red panda&#39;], &#39;GenbankCommonName&#39;: &#39;lesser panda&#39;}
 ParentTaxId	:	9648
 Rank	:	species
 Division	:	Mammals
@@ -15581,7 +15615,7 @@ PubDate	:	1993/11/19 00:00:00
 
 TaxId	:	9646
 ScientificName	:	Ailuropoda melanoleuca
-OtherNames	:	{&#39;CommonName&#39;: [], &#39;Includes&#39;: [], &#39;Inpart&#39;: [], &#39;Acronym&#39;: [], &#39;Name&#39;: [{&#39;ClassCDE&#39;: &#39;authority&#39;, &#39;DispName&#39;: &#39;Ailuropoda melanoleuca (David, 1869)&#39;}, {&#39;ClassCDE&#39;: &#39;misspelling&#39;, &#39;DispName&#39;: &#39;Ailuropoda melanoleura&#39;}], &#39;GenbankSynonym&#39;: [], &#39;GenbankAnamorph&#39;: [], &#39;Synonym&#39;: [], &#39;Misnomer&#39;: [], &#39;Teleomorph&#39;: [], &#39;EquivalentName&#39;: [], &#39;Anamorph&#39;: [], &#39;Misspelling&#39;: [], &#39;GenbankCommonName&#39;: &#39;giant panda&#39;}
+OtherNames	:	{&#39;Anamorph&#39;: [], &#39;GenbankSynonym&#39;: [], &#39;Misspelling&#39;: [], &#39;Teleomorph&#39;: [], &#39;Synonym&#39;: [], &#39;Inpart&#39;: [], &#39;Includes&#39;: [], &#39;Acronym&#39;: [], &#39;Misnomer&#39;: [], &#39;GenbankAnamorph&#39;: [], &#39;Name&#39;: [{&#39;ClassCDE&#39;: &#39;authority&#39;, &#39;DispName&#39;: &#39;Ailuropoda melanoleuca (David, 1869)&#39;}, {&#39;ClassCDE&#39;: &#39;misspelling&#39;, &#39;DispName&#39;: &#39;Ailuropoda melanoleura&#39;}], &#39;EquivalentName&#39;: [], &#39;CommonName&#39;: [], &#39;GenbankCommonName&#39;: &#39;giant panda&#39;}
 ParentTaxId	:	9645
 Rank	:	species
 Division	:	Mammals
